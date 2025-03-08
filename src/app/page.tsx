@@ -1,3 +1,4 @@
+import UploadPodcast from 'forms/uploadPodcast'
 import React from 'react'
 
 export default function NewProject() {
@@ -8,9 +9,14 @@ export default function NewProject() {
 
       
       {/* Your content */}
-      <div className="relative p-8 h-screen flex flex-col items-center justify-center">
-        <main className="flex flex-col items-center justify-center p-10 w-[50%] bg-background rounded-xl">
-          Hello
+      <div className="relative p-4 w-screen flex flex-col items-center justify-center">
+        <main className="flex flex-col items-center justify-center p-10 w-[98%] bg-background rounded-xl">
+          <h1 className='text-xl font-bold'>
+            New DeepPodcast
+          </h1>
+          <div className='mt-4'>
+            <UploadPodcast />
+          </div>
         </main>
       </div>
     </div>
