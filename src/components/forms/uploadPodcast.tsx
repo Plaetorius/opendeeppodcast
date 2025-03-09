@@ -40,7 +40,7 @@ const items: ItemType[] = [
   { id: "defi", name: "DeFi", categories: ["web3", "business"] },
 ]
 
-
+// TODO podcast name must be created by deleting the whitespace in the name, and appending it its ID
 
 export default function UploadPodcast() {
 	const [selectedTags, setSeletectTags] = useState<string[]>([]);
@@ -144,6 +144,13 @@ export default function UploadPodcast() {
 					id='audio'
 					type='file'
 					onChange={handleFileChange}
+					className='w-80 flex items-center justify-center h-fit file:h-8 cursor-pointer 
+										file:mr-4 file:py-2 file:px-4
+										file:rounded-md file:border-0
+										file:text-sm file:font-semibold
+										file:bg-gray-200 file:text-gray-700
+										hover:file:bg-gray-300 file:transition-colors
+										file:cursor-pointer file:flex file:items-center'
 				/>
 				<Button
 					color='default'

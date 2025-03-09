@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Providers from "@/components/providers/Providers";
+import Providers from "ui/providers/Providers";
+import Header from "ui/Header";
 
 export const metadata: Metadata = {
   title: "OpenDeepPodcast",
@@ -23,6 +24,7 @@ export default function RootLayout({
             
             {/* Your content */}
             <div className="relative p-4 w-screen flex flex-col items-center justify-center">
+              <Header />
               {children}
             </div>
           </div>
