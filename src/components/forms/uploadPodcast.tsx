@@ -133,23 +133,24 @@ export default function UploadPodcast() {
 	console.log("Validation errors:", errors);
 
 	return (
-		<div className='w-full'>
+		<div className='w-full p-4'>
 			<form 
 				onSubmit={handleSubmit(onSubmit)}
-				className='grid gap-2 w-[90%]'
+				className='flex flex-col items-center gap-3'
 			>
 				<Input
 					id='title'
 					defaultValue=''
 					placeholder='Title'
 					{...register('title')}
-					className='w-80'
+					className='w-full'
 				/>
+				
 				<Textarea
 					id='description'
 					placeholder='Description of your podcast'
 					{...register('description')}
-					className='w-80'
+					className='w-full'
 				>
 				</Textarea>
 				<MultiSelect
