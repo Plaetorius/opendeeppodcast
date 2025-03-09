@@ -10,6 +10,7 @@ import { Plus } from 'lucide-react';
 import { Textarea } from 'ui/textarea';
 import { MultiSelect, type ItemType, type CategoryType } from 'ui/MultiSelect';
 import { uploadPodcast } from '@/lib/upload';
+import { toast } from 'react-toastify';
 
 // TODO fetch me
 const categories: CategoryType[] = [
@@ -81,7 +82,10 @@ export default function UploadPodcast() {
 			
 			console.log("Form data to submit:", formData);
 			setUploadForm(formData);
-			uploadPodcast(formData);
+			const resp = await uploadPodcast(formData);
+			if (resp && resp.data) {
+				toast.success("Podcast successfully uploaded!")
+			}
 		} catch (error) {
 			console.error("Error in form submission:", error);
 		}
@@ -107,13 +111,32 @@ export default function UploadPodcast() {
 		return values
 	}
 
+	const getSafeUploadForm = () => {
+		if (!uploadForm) return null;
+		
+		// Create a deep copy without circular references
+		const safeForm = {...uploadForm};
+		
+		// Remove file object which causes circular references
+		if (safeForm.audio && typeof safeForm.audio === 'object') {
+			safeForm.audio = {
+				name: safeForm.audio.name,
+				type: safeForm.audio.type,
+				size: safeForm.audio.size,
+				lastModified: safeForm.audio.lastModified
+			};
+		}
+		
+		return safeForm;
+	};
+
 	console.log("Validation errors:", errors);
 
 	return (
 		<div className='w-full'>
 			<form 
 				onSubmit={handleSubmit(onSubmit)}
-				className='grid gap-2 w-full'
+				className='grid gap-2 w-[90%]'
 			>
 				<Input
 					id='title'
@@ -207,10 +230,14 @@ export default function UploadPodcast() {
 
 			{Object.keys(errors).length > 0 && (
 				<div className="mt-4">
-					<h3 className='font-semibold text-red-500'>Form Errors:</h3>
-					<pre className="bg-red-50 p-2 rounded text-sm overflow-auto max-w-full">
-						{JSON.stringify(errors, null, 2)}
-					</pre>
+					{uploadForm && (
+						<>
+							<h3 className='font-semibold mt-4'>Submitted Form Data:</h3>
+							<pre className="bg-gray-100 p-2 rounded text-sm text-wrap overflow-auto max-w-full">
+								{JSON.stringify(getSafeUploadForm(), null, 2)}
+							</pre>
+						</>
+					)}
 				</div>
 			)}
 			</div>

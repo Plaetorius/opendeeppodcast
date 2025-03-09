@@ -11,6 +11,7 @@ import React from 'react'
 import { Download, Share } from "lucide-react"
 import Link from "next/link"
 import { Button } from "ui/button"
+import { toast } from "react-toastify";
 
 interface PodcastCardProps {
 	id: string
@@ -19,14 +20,16 @@ interface PodcastCardProps {
 	audioFile: {
 		name: string
 		type: string
+		url: string;
 	}
 	tags: string[]
 }
 
 export default function PodcastCard(params: PodcastCardProps) {
 	const copyToClipboard = () => {
-		const shareUrl = `${window.location.origin}/podcasts/${params.audioFile.name}` //TODO later create a page per podcast
+		const shareUrl = params.audioFile.url //TODO later create a page per podcast
 		navigator.clipboard.writeText(shareUrl)
+		toast.success("Link copied to clipboard!")
 	}
 	
 	return (
@@ -38,7 +41,7 @@ export default function PodcastCard(params: PodcastCardProps) {
 			<CardContent className="flex items-center justify-center space-x-2">
 				{/* <Play className="size-10 p-2.5 rounded-full bg-pink fill-white" color="white" /> */}
 				<Button className="size-10">
-					<Link href={`/podcasts/${params.audioFile.name}`} target="_blank" download>
+					<Link href={params.audioFile.url} target="_blank" download>
 						<Download />
 					</Link>
 				</Button>

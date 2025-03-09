@@ -23,9 +23,12 @@ export default function RootLayout({
 
             
             {/* Your content */}
-            <div className="relative p-4 w-screen flex flex-col items-center justify-center">
+            <div className="relative w-screen">
               <Header />
-              {children}
+              <div className="flex flex-col items-center justify-center p-4">
+                {children}
+
+              </div>
             </div>
           </div>
         </Providers>
