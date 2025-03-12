@@ -11,6 +11,7 @@ import { Textarea } from 'ui/textarea';
 import { MultiSelect, type ItemType, type CategoryType } from 'ui/MultiSelect';
 import { uploadPodcast } from '@/lib/upload';
 import { toast } from 'react-toastify';
+import { sanitizeFile } from '@/lib/fileSanitization';
 
 // TODO fetch me
 const categories: CategoryType[] = [
@@ -98,8 +99,10 @@ export default function UploadPodcast() {
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
 			const selectedFile = e.target.files[0]
-			setFile(selectedFile)
-			setValue('audio', selectedFile)
+			// Sanitize the file before setting it
+			const sanitizedFile = sanitizeFile(selectedFile)
+			setFile(sanitizedFile)
+			setValue('audio', sanitizedFile)
 		}
 	};
 
