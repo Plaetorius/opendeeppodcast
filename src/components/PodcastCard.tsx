@@ -31,7 +31,8 @@ export default function PodcastCard(params: PodcastCardProps) {
 		navigator.clipboard.writeText(shareUrl)
 		toast.success("Link copied to clipboard!")
 	}
-	
+
+
 	return (
 		<Card>
 			<CardHeader>
@@ -40,11 +41,13 @@ export default function PodcastCard(params: PodcastCardProps) {
 			</CardHeader>
 			<CardContent className="flex items-center justify-center space-x-2">
 				{/* <Play className="size-10 p-2.5 rounded-full bg-pink fill-white" color="white" /> */}
-				<Button className="size-10">
-					<Link href={params.audioFile.url} target="_blank" download>
-						<Download />
-					</Link>
-				</Button>
+				<Link href={params.audioFile.url} target="_blank" download>
+					<Button className="size-10" asChild>
+						<div className="flex items-center justify-center">
+							<Download />
+						</div>
+					</Button>
+				</Link>
 				<Button className="size-10" onClick={copyToClipboard} variant='default'>
 					<Share />
 				</Button>
